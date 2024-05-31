@@ -12,3 +12,6 @@ Backend project for 'finance-management-system' using NodeJS, ExpressJS and Mong
 2. install the necessary dependencies:
     * npm i express@4.19.2  
     * npm i mongoose@5.10.0
+
+3. create index.js in root folder and configure express to run the application:
+    * node index.js    // to run the app
