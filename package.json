@@ -1,0 +1,12 @@
+{
+  "name": "finance-management-backend",
+  "version": "1.0.0",
+  "description": "Finance management system to handle store your expenses and represent it in a graph chart.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Shubham Urkude",
+  "license": "ISC"
+}
