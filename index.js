@@ -1,7 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const connectToDatabase = require('./db');
+const dotenv = require('dotenv');
+
+dotenv.config();
 const app = express();
+const port = process.env.PORT || 3000;
 
 const transactionsRouter = require('./src/routes/transactions');
 app.use(cors());
@@ -12,11 +16,15 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-
+// Connect to the database and then start the server
 connectToDatabase()
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error(err));
+  .then((db) => {
+    app.locals.db = db; // Store the database connection in app.locals for reuse in routes
+    app.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to connect to the database:', err);
+    process.exit(1); // Exit the process if the database connection fails
+  });
