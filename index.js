@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
+const connectToDatabase = require('./db');
 const app = express();
-const port = 3000;
 
 const transactionsRouter = require('./src/routes/transactions');
 app.use(cors());
@@ -13,12 +12,11 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-mongoose.connect('mongodb://localhost:27017/finance-management', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
+connectToDatabase()
+.then(() => console.log('MongoDB connected'))
 .catch(err => console.error(err));
